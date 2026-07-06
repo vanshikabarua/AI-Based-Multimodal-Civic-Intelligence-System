@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CivicAI — Civic Intelligence Platform</title>
+  <meta name="description" content="Report civic issues with photo, text and GPS. AI classifies, prioritizes and tracks every complaint — with hotspot maps and predictive risk analysis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏙️</text></svg>" />
+</head>
+<body>
+
+  <input type="checkbox" id="navCheck" class="nav-check" hidden />
+
+  <!-- SIDEBAR....!!!!  -->
+  <aside class="sidebar">
+    <a class="brand" href="#dashboard">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><circle cx="12" cy="10" r="1.4" fill="currentColor" stroke="none"/></svg>
+      </span>
+      <span class="brand-text">Civic<em>AI</em></span>
+    </a>
+
+    <nav class="side-nav">
+      <a href="#dashboard" class="side-link l-dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="#report" class="side-link l-report">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+        <span>Report Issue</span>
+      </a>
+      <a href="#complaints" class="side-link l-complaints">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>
+        <span>My Complaints</span>
+        <b class="side-count">8</b>
+      </a>
+      <a href="#hotspots" class="side-link l-hotspots">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Hotspots &amp; Risk</span>
+      </a>
+      <a href="#notifications" class="side-link l-notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        <span>Notifications</span>
+        <b class="side-count">3</b>
+      </a>
+    </nav>
+
+    <div class="side-foot">
+      <div class="ai-status">
+        <span class="ai-dot"></span>
+        <div>
+          <b>AI Engine Online</b>
+          <small>Vision · NLP · Fraud · Forecast</small>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <label for="navCheck" class="nav-scrim" aria-hidden="true"></label>
+
+  <!--  APP ....!!!!!! -->
+  <div class="app">
+
+    <header class="topbar">
+      <label for="navCheck" class="icon-btn menu-btn" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </label>
+      <div class="topbar-title">
+        <h1>Civic Intelligence Console</h1>
+        <p>Smart complaint management for the whole city</p>
+      </div>
+      <div class="topbar-actions">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" placeholder="Search complaints, areas…" />
+        </div>
+        <a class="icon-btn" href="#notifications" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+          <i class="bell-badge"></i>
+        </a>
+        <span class="avatar" title="Citizen account">C</span>
+      </div>
+    </header>
+
+    <main class="views">
+
+      <!--  DASHBOARD ....!!!-->
+      <section class="view" id="dashboard">
+        <div class="view-head">
+          <h2 class="view-title">Dashboard</h2>
+          <p class="view-sub">City-wide civic issue overview · updated live</p>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat" style="--tile-accent:var(--accent)">
+            <div class="stat-label">Total Complaints</div>
+            <div class="stat-value">24</div>
+            <div class="stat-delta"><b class="up">+6</b> this week</div>
+          </div>
+          <div class="stat" style="--tile-accent:var(--st-warning)">
+            <div class="stat-label">Active Issues</div>
+            <div class="stat-value">9</div>
+            <div class="stat-delta">38% of total</div>
+          </div>
+          <div class="stat" style="--tile-accent:var(--st-good)">
+            <div class="stat-label">Resolved</div>
+            <div class="stat-value">15</div>
+            <div class="stat-delta"><b class="up">63%</b> resolution rate</div>
+          </div>
+          <div class="stat" style="--tile-accent:var(--st-critical)">
+            <div class="stat-label">Critical Now</div>
+            <div class="stat-value">3</div>
+            <div class="stat-delta"><b class="down">needs action</b></div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head">
+              <div><h2>Complaint Trend</h2><p>Daily submissions · last 14 days</p></div>
+            </div>
+            <div class="chart-wrap">
+              <svg class="trend-svg" viewBox="0 0 560 230" preserveAspectRatio="none" role="img" aria-label="Daily complaint submissions, last 14 days">
+                <defs>
+                  <linearGradient id="trendGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(57,135,229,0.32)"/>
+                    <stop offset="100%" stop-color="rgba(57,135,229,0)"/>
+                  </linearGradient>
+                </defs>
+                <line class="grid-l" x1="34" y1="200"   x2="548" y2="200"/>
+                <line class="grid-l" x1="34" y1="153.5" x2="548" y2="153.5"/>
+                <line class="grid-l" x1="34" y1="107"   x2="548" y2="107"/>
+                <line class="grid-l" x1="34" y1="60.5"  x2="548" y2="60.5"/>
+                <line class="grid-l" x1="34" y1="14"    x2="548" y2="14"/>
+                <text class="axis-t" x="27" y="203.5" text-anchor="end">0</text>
+                <text class="axis-t" x="27" y="157"   text-anchor="end">3</text>
+                <text class="axis-t" x="27" y="110.5" text-anchor="end">6</text>
+                <text class="axis-t" x="27" y="64"    text-anchor="end">9</text>
+                <text class="axis-t" x="27" y="17.5"  text-anchor="end">12</text>
+                <path class="area" d="M34,153.5 L73.5,122.5 L113.1,138 L152.6,107 L192.2,76 L231.7,107 L271.3,60.5 L310.8,91.5 L350.4,45 L389.9,76 L429.5,29.5 L469,60.5 L508.5,14 L548,45 L548,200 L34,200 Z"/>
+                <path class="line" d="M34,153.5 L73.5,122.5 L113.1,138 L152.6,107 L192.2,76 L231.7,107 L271.3,60.5 L310.8,91.5 L350.4,45 L389.9,76 L429.5,29.5 L469,60.5 L508.5,14 L548,45"/>
+                <circle class="end-dot" cx="548" cy="45" r="4.5"/>
+                <text class="axis-t" x="34"    y="221" text-anchor="middle">Jun 23</text>
+                <text class="axis-t" x="113.1" y="221" text-anchor="middle">Jun 25</text>
+                <text class="axis-t" x="192.2" y="221" text-anchor="middle">Jun 27</text>
+                <text class="axis-t" x="271.3" y="221" text-anchor="middle">Jun 29</text>
+                <text class="axis-t" x="350.4" y="221" text-anchor="middle">Jul 1</text>
+                <text class="axis-t" x="429.5" y="221" text-anchor="middle">Jul 3</text>
+                <text class="axis-t" x="508.5" y="221" text-anchor="middle">Jul 5</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div><h2>Issues by Category</h2><p>All complaints on record</p></div>
+            </div>
+            <div class="hbar-chart">
+              <div class="hbar" title="Road Damage: 6 complaints">
+                <span class="hbar-label">🕳️ Road Damage</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div>
+                <span class="hbar-val">6</span>
+              </div>
+              <div class="hbar" title="Garbage Accumulation: 5 complaints">
+                <span class="hbar-label">🗑️ Garbage</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:83%"></div></div>
+                <span class="hbar-val">5</span>
+              </div>
+              <div class="hbar" title="Water Logging: 5 complaints">
+                <span class="hbar-label">💧 Water Logging</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:83%"></div></div>
+                <span class="hbar-val">5</span>
+              </div>
+              <div class="hbar" title="Streetlight Failure: 4 complaints">
+                <span class="hbar-label">💡 Streetlight</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:67%"></div></div>
+                <span class="hbar-val">4</span>
+              </div>
+              <div class="hbar" title="Drainage Blockage: 4 complaints">
+                <span class="hbar-label">🚰 Drainage</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:67%"></div></div>
+                <span class="hbar-val">4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="panel">
+            <div class="panel-head">
+              <div><h2>Priority Distribution</h2><p>AI-scored urgency levels</p></div>
+            </div>
+            <div class="hbar-chart">
+              <div class="hbar" title="Critical priority: 4">
+                <span class="hbar-label"><span class="pbar-icon">🔴</span> Critical</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:57%;--bar-color:var(--st-critical)"></div></div>
+                <span class="hbar-val">4</span>
+              </div>
+              <div class="hbar" title="High priority: 6">
+                <span class="hbar-label"><span class="pbar-icon">🟠</span> High</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:86%;--bar-color:var(--st-serious)"></div></div>
+                <span class="hbar-val">6</span>
+              </div>
+              <div class="hbar" title="Medium priority: 7">
+                <span class="hbar-label"><span class="pbar-icon">🟡</span> Medium</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:100%;--bar-color:var(--st-warning)"></div></div>
+                <span class="hbar-val">7</span>
+              </div>
+              <div class="hbar" title="Low priority: 7">
+                <span class="hbar-label"><span class="pbar-icon">🟢</span> Low</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:100%;--bar-color:var(--st-good)"></div></div>
+                <span class="hbar-val">7</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div><h2>Predicted Risk Zones</h2><p>Forecast · next 7 days</p></div>
+              <span class="chip-ai">AI Forecast</span>
+            </div>
+            <div class="risk-list">
+              <div class="risk-item">
+                <b>Station Road</b><span class="risk-pct">88%</span>
+                <small>💧 Water logging likely · monsoon pattern detected</small>
+                <div class="risk-track"><div class="risk-fill" style="width:88%"></div></div>
+              </div>
+              <div class="risk-item">
+                <b>Market Square</b><span class="risk-pct">76%</span>
+                <small>🗑️ Garbage accumulation likely · weekend surge</small>
+                <div class="risk-track"><div class="risk-fill" style="width:76%"></div></div>
+              </div>
+              <div class="risk-item">
+                <b>MG Road</b><span class="risk-pct">64%</span>
+                <small>🕳️ Road damage likely · heavy traffic corridor</small>
+                <div class="risk-track"><div class="risk-fill" style="width:64%"></div></div>
+              </div>
+              <div class="risk-item">
+                <b>Old Town</b><span class="risk-pct">52%</span>
+                <small>🚰 Drainage blockage likely · aging sewer lines</small>
+                <div class="risk-track"><div class="risk-fill" style="width:52%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div><h2>Integrity Alerts</h2><p>Anomaly &amp; duplicate screening</p></div>
+            </div>
+            <div class="fraud-list">
+              <div class="fraud-item">
+                <span class="fi-icon">🚫</span>
+                <div><b>Complaint rejected</b><small>Gibberish text pattern · anomaly score 0.91</small></div>
+                <span class="verdict blocked">Blocked</span>
+              </div>
+              <div class="fraud-item">
+                <span class="fi-icon">🔁</span>
+                <div><b>4 duplicates merged</b><small>Same garbage issue at Market Square · similarity 0.94</small></div>
+                <span class="verdict merged">Merged</span>
+              </div>
+              <div class="fraud-item">
+                <span class="fi-icon">⚠️</span>
+                <div><b>Suspicious location</b><small>Photo GPS ≠ reported GPS (3.2 km apart)</small></div>
+                <span class="verdict review">Reviewing</span>
+              </div>
+              <div class="fraud-item">
+                <span class="fi-icon">🚫</span>
+                <div><b>Repeat spam blocked</b><small>11 identical reports from one device in 5 min</small></div>
+                <span class="verdict blocked">Blocked</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <div><h2>Recent Complaints</h2><p>Latest reports across the city</p></div>
+            <a class="btn btn-ghost btn-sm" href="#complaints">View all →</a>
+          </div>
+          <div class="table-scroll">
+            <table class="ctable">
+              <thead>
+                <tr><th>ID</th><th>Issue</th><th>Area</th><th>Priority</th><th>Status</th><th>Reported</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cid">CIV-2624</td><td class="cissue">🕳️ Road Damage</td><td class="carea">MG Road</td>
+                  <td><span class="badge badge-critical">Critical</span></td>
+                  <td><span class="sbadge s-progress"><i></i>In Progress</span></td><td class="cwhen">2 hr ago</td>
+                </tr>
+                <tr>
+                  <td class="cid">CIV-2623</td><td class="cissue">💧 Water Logging</td><td class="carea">Station Road</td>
+                  <td><span class="badge badge-critical">Critical</span></td>
+                  <td><span class="sbadge s-review"><i></i>Under Review</span></td><td class="cwhen">6 hr ago</td>
+                </tr>
+                <tr>
+                  <td class="cid">CIV-2622</td><td class="cissue">🗑️ Garbage Accumulation</td><td class="carea">Market Square</td>
+                  <td><span class="badge badge-high">High</span></td>
+                  <td><span class="sbadge s-review"><i></i>Under Review</span></td><td class="cwhen">yesterday</td>
+                </tr>
+                <tr>
+                  <td class="cid">CIV-2621</td><td class="cissue">🚰 Drainage Blockage</td><td class="carea">Old Town</td>
+                  <td><span class="badge badge-high">High</span></td>
+                  <td><span class="sbadge s-progress"><i></i>In Progress</span></td><td class="cwhen">yesterday</td>
+                </tr>
+                <tr>
+                  <td class="cid">CIV-2620</td><td class="cissue">💡 Streetlight Failure</td><td class="carea">Riverside Colony</td>
+                  <td><span class="badge badge-medium">Medium</span></td>
+                  <td><span class="sbadge s-submitted"><i></i>Submitted</span></td><td class="cwhen">2 days ago</td>
+                </tr>
+                <tr>
+                  <td class="cid">CIV-2619</td><td class="cissue">🗑️ Garbage Accumulation</td><td class="carea">Ward 7</td>
+                  <td><span class="badge badge-medium">Medium</span></td>
+                  <td><span class="sbadge s-resolved"><i></i>Resolved</span></td><td class="cwhen">3 days ago</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- REPORT....!!!!!  -->
+      <section class="view" id="report">
+        <div class="view-head">
+          <h2 class="view-title">Report a Civic Issue</h2>
+          <p class="view-sub">Photo + description + location — the AI engine does the rest</p>
+        </div>
+
+        <div class="report-grid">
+          <form class="panel report-form" action="#report">
+            <label class="field-label">1 · Photo evidence <span class="opt">recommended</span></label>
+            <label class="dropzone" for="photoInput">
+              <input type="file" id="photoInput" accept="image/*" hidden />
+              <span class="dz-empty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4.5-4.5L7 20"/></svg>
+                <b>Drop a photo or click to upload</b>
+                <small>The vision model auto-detects the issue type from your photo</small>
+              </span>
+            </label>
+
+            <label class="field-label" for="descInput">2 · Describe the issue</label>
+            <div class="desc-wrap">
+              <textarea id="descInput" rows="4" placeholder="e.g. Deep pothole near the school gate on MG Road — two-wheelers are skidding, very dangerous at night…" required></textarea>
+              <span class="mic-btn" title="Voice input (converted to text)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/></svg>
+              </span>
+            </div>
+            <div class="nlp-hint">💬 NLP reads your words for category, urgency &amp; context — severity keywords raise the priority score.</div>
+
+            <span class="field-label">3 · Category</span>
+            <div class="cat-row">
+              <input type="radio" name="cat" id="cat-auto" class="cat-check" checked hidden />
+              <label class="cat-btn" for="cat-auto">✨ Auto-detect</label>
+              <input type="radio" name="cat" id="cat-road" class="cat-check" hidden />
+              <label class="cat-btn" for="cat-road">🕳️ Road Damage</label>
+              <input type="radio" name="cat" id="cat-garbage" class="cat-check" hidden />
+              <label class="cat-btn" for="cat-garbage">🗑️ Garbage</label>
+              <input type="radio" name="cat" id="cat-water" class="cat-check" hidden />
+              <label class="cat-btn" for="cat-water">💧 Water Logging</label>
+              <input type="radio" name="cat" id="cat-light" class="cat-check" hidden />
+              <label class="cat-btn" for="cat-light">💡 Streetlight</label>
+              <input type="radio" name="cat" id="cat-drain" class="cat-check" hidden />
+              <label class="cat-btn" for="cat-drain">🚰 Drainage</label>
+              <input type="radio" name="cat" id="cat-other" class="cat-check" hidden />
+              <label class="cat-btn" for="cat-other">📋 Other</label>
+            </div>
+
+            <span class="field-label">4 · Location</span>
+            <div class="loc-row">
+              <button type="button" class="btn btn-ghost">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                Use my GPS
+              </button>
+              <input type="text" id="areaInput" placeholder="Area / landmark (e.g. Ward 7, Market Square)" required />
+            </div>
+            <div class="gps-chip">📍 26.84671, 80.94628 · accuracy ±12 m · captured automatically</div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+              Submit Complaint
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </button>
+            <p class="form-note">Submission is timestamped automatically. False complaints are flagged by the integrity engine.</p>
+          </form>
+
+          <aside class="report-side">
+            <div class="panel">
+              <div class="panel-head"><div><h2>How your report is processed</h2></div></div>
+              <ol class="pipe-list">
+                <li><b>👁️ Vision analysis</b><span>Issue detected &amp; verified from your photo</span></li>
+                <li><b>💬 Language analysis</b><span>Urgency &amp; context extracted from your words</span></li>
+                <li><b>🔎 Duplicate check</b><span>Merged with nearby reports of the same issue</span></li>
+                <li><b>🛡️ Integrity screening</b><span>Anomaly detection filters fake reports</span></li>
+                <li><b>⚖️ Priority scoring</b><span>Severity · frequency · location · impact · time</span></li>
+                <li><b>🏛️ Authority routing</b><span>Sent to the right department, tracked to resolution</span></li>
+              </ol>
+            </div>
+            <div class="panel formula-panel">
+              <div class="panel-head"><div><h2>Priority formula</h2></div></div>
+              <code class="formula-code">0.40·Severity + 0.25·Frequency + 0.15·Location + 0.10·Impact + 0.10·Time</code>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- COMPLAINTS ......!!!!!! -->
+      <section class="view" id="complaints">
+        <div class="view-head">
+          <h2 class="view-title">My Complaints</h2>
+          <p class="view-sub">Track every report to resolution · click a card for full details</p>
+        </div>
+
+        <div class="filters">
+          <div class="seg">
+            <input type="radio" name="fstatus" id="fs-all" class="f-check" checked hidden />
+            <label class="seg-btn" for="fs-all">All</label>
+            <input type="radio" name="fstatus" id="fs-submitted" class="f-check" hidden />
+            <label class="seg-btn" for="fs-submitted">Submitted</label>
+            <input type="radio" name="fstatus" id="fs-review" class="f-check" hidden />
+            <label class="seg-btn" for="fs-review">Under Review</label>
+            <input type="radio" name="fstatus" id="fs-progress" class="f-check" hidden />
+            <label class="seg-btn" for="fs-progress">In Progress</label>
+            <input type="radio" name="fstatus" id="fs-resolved" class="f-check" hidden />
+            <label class="seg-btn" for="fs-resolved">Resolved</label>
+          </div>
+          <div class="seg">
+            <input type="radio" name="fprio" id="fp-any" class="f-check" checked hidden />
+            <label class="seg-btn" for="fp-any">Any priority</label>
+            <input type="radio" name="fprio" id="fp-critical" class="f-check" hidden />
+            <label class="seg-btn" for="fp-critical">Critical</label>
+            <input type="radio" name="fprio" id="fp-high" class="f-check" hidden />
+            <label class="seg-btn" for="fp-high">High</label>
+            <input type="radio" name="fprio" id="fp-medium" class="f-check" hidden />
+            <label class="seg-btn" for="fp-medium">Medium</label>
+            <input type="radio" name="fprio" id="fp-low" class="f-check" hidden />
+            <label class="seg-btn" for="fp-low">Low</label>
+          </div>
+        </div>
+
+        <div class="complaint-list">
+
+          <details class="ccard st-progress pr-critical">
+            <summary>
+              <span class="ccard-top">
+                <span class="ccard-icon">🕳️</span>
+                <span class="ccard-title"><b>Road Damage</b><small>CIV-2624</small></span>
+                <span class="badge badge-critical">Critical</span>
+              </span>
+              <span class="ccard-desc">Deep pothole near the school gate on MG Road — two-wheelers are skidding daily, an accident happened here last week.</span>
+              <span class="ccard-meta">
+                <span>📍 MG Road</span><span>🕐 2 hr ago</span><span>⚖️ 87/100</span>
+                <span class="sbadge s-progress"><i></i>In Progress</span>
+              </span>
+            </summary>
+            <div class="ccard-body">
+              <div class="result-rows">
+                <div class="result-row"><span>📍 GPS</span><b>26.84512, 80.94301</b></div>
+                <div class="result-row"><span>🏛️ Assigned to</span><b>Public Works Dept.</b></div>
+                <div class="result-row"><span>👁️ AI detection</span><b>Road Damage · 96% confidence</b></div>
+                <div class="result-row"><span>⚖️ Priority factors</span><b>S 92 · F 78 · L 88 · I 85 · T 40</b></div>
+              </div>
+              <div class="stepper">
+                <div class="step done"><i></i><b>Submitted</b></div>
+                <div class="step done"><i></i><b>Under Review</b></div>
+                <div class="step now"><i></i><b>In Progress</b></div>
+                <div class="step"><i></i><b>Resolved</b></div>
+              </div>
+            </div>
+          </details>
+
+          <details class="ccard st-review pr-critical">
+            <summary>
+              <span class="ccard-top">
+                <span class="ccard-icon">💧</span>
+                <span class="ccard-title"><b>Water Logging</b><small>CIV-2623</small></span>
+                <span class="badge badge-critical">Critical</span>
+              </span>
+              <span class="ccard-desc">Knee-deep water logging after every rain near the underpass — children can't reach the school safely and vehicles break down midway.</span>
+              <span class="ccard-meta">
+                <span>📍 Station Road</span><span>🕐 6 hr ago</span><span>⚖️ 84/100</span>
+                <span class="sbadge s-review"><i></i>Under Review</span>
+              </span>
+            </summary>
+            <div class="ccard-body">
+              <div class="result-rows">
+                <div class="result-row"><span>📍 GPS</span><b>26.84203, 80.94517</b></div>
+                <div class="result-row"><span>🏛️ Assigned to</span><b>Drainage &amp; Water Board</b></div>
+                <div class="result-row"><span>👁️ AI detection</span><b>Water Logging · 94% confidence</b></div>
+                <div class="result-row"><span>🔎 Duplicates</span><b>3 nearby reports merged — frequency boosted</b></div>
+              </div>
+              <div class="stepper">
+                <div class="step done"><i></i><b>Submitted</b></div>
+                <div class="step now"><i></i><b>Under Review</b></div>
+                <div class="step"><i></i><b>In Progress</b></div>
+                <div class="step"><i></i><b>Resolved</b></div>
+              </div>
+            </div>
+          </details>
+
+          <details class="ccard st-review pr-high">
+            <summary>
+              <span class="ccard-top">
+                <span class="ccard-icon">🗑️</span>
+                <span class="ccard-title"><b>Garbage Accumulation</b><small>CIV-2622</small></span>
+                <span class="badge badge-high">High</span>
+              </span>
+              <span class="ccard-desc">Garbage not collected for two weeks at Market Square — terrible smell spreading and stray animals gathering around the bins.</span>
+              <span class="ccard-meta">
+                <span>📍 Market Square</span><span>🕐 yesterday</span><span>⚖️ 71/100</span>
+                <span class="sbadge s-review"><i></i>Under Review</span>
+              </span>
+            </summary>
+            <div class="ccard-body">
+              <div class="result-rows">
+                <div class="result-row"><span>📍 GPS</span><b>26.85017, 80.93842</b></div>
+                <div class="result-row"><span>🏛️ Assigned to</span><b>Sanitation Dept.</b></div>
+                <div class="result-row"><span>👁️ AI detection</span><b>Garbage Accumulation · 97% confidence</b></div>
+                <div class="result-row"><span>🔎 Duplicates</span><b>4 nearby reports merged</b></div>
+              </div>
+              <div class="stepper">
+                <div class="step done"><i></i><b>Submitted</b></div>
+                <div class="step now"><i></i><b>Under Review</b></div>
+                <div class="step"><i></i><b>In Progress</b></div>
+                <div class="step"><i></i><b>Resolved</b></div>
+              </div>
+            </div>
+          </details>
+
+          <details class="ccard st-progress pr-high">
+            <summary>
+              <span class="ccard-top">
+                <span class="ccard-icon">🚰</span>
+                <span class="ccard-title"><b>Drainage Blockage</b><small>CIV-2621</small></span>
+                <span class="badge badge-high">High</span>
+              </span>
+              <span class="ccard-desc">Sewage overflowing from the manhole onto the road in Old Town — unbearable smell all day, dirty water entering roadside shops.</span>
+              <span class="ccard-meta">
+                <span>📍 Old Town</span><span>🕐 yesterday</span><span>⚖️ 68/100</span>
+                <span class="sbadge s-progress"><i></i>In Progress</span>
+              </span>
+            </summary>
+            <div class="ccard-body">
+              <div class="result-rows">
+                <div class="result-row"><span>📍 GPS</span><b>26.83958, 80.93214</b></div>
+                <div class="result-row"><span>🏛️ Assigned to</span><b>Drainage &amp; Water Board</b></div>
+                <div class="result-row"><span>👁️ AI detection</span><b>Drainage Blockage · 91% confidence</b></div>
+                <div class="result-row"><span>⚖️ Priority factors</span><b>S 74 · F 62 · L 66 · I 70 · T 35</b></div>
+              </div>
+              <div class="stepper">
+                <div class="step done"><i></i><b>Submitted</b></div>
+                <div class="step done"><i></i><b>Under Review</b></div>
+                <div class="step now"><i></i><b>In Progress</b></div>
+                <div class="step"><i></i><b>Resolved</b></div>
+              </div>
+            </div>
+          </details>
+
+          <details class="ccard st-submitted pr-medium">
+            <summary>
+              <span class="ccard-top">
+                <span class="ccard-icon">💡</span>
+                <span class="ccard-title"><b>Streetlight Failure</b><small>CIV-2620</small></span>
+                <span class="badge badge-medium">Medium</span>
+              </span>
+              <span class="ccard-desc">Entire street dark for a week in Riverside Colony, streetlights not working — feels unsafe at night.</span>
+              <span class="ccard-meta">
+                <span>📍 Riverside Colony</span><span>🕐 2 days ago</span><span>⚖️ 54/100</span>
+                <span class="sbadge s-submitted"><i></i>Submitted</span>
+              </span>
+            </summary>
+            <div class="ccard-body">
+              <div class="result-rows">
+                <div class="result-row"><span>📍 GPS</span><b>26.86104, 80.96027</b></div>
+                <div class="result-row"><span>🏛️ Assigned to</span><b>Electrical Dept.</b></div>
+                <div class="result-row"><span>👁️ AI detection</span><b>Streetlight Failure · 89% confidence</b></div>
+                <div class="result-row"><span>🛡️ Integrity</span><b>Verified genuine</b></div>
+              </div>
+              <div class="stepper">
+                <div class="step now"><i></i><b>Submitted</b></div>
+                <div class="step"><i></i><b>Under Review</b></div>
+                <div class="step"><i></i><b>In Progress</b></div>
+                <div class="step"><i></i><b>Resolved</b></div>
+              </div>
+            </div>
+          </details>
+
+          <details class="ccard st-resolved pr-medium">
+            <summary>
+              <span class="ccard-top">
+                <span class="ccard-icon">🗑️</span>
+                <span class="ccard-title"><b>Garbage Accumulation</b><small>CIV-2619</small></span>
+                <span class="badge badge-medium">Medium</span>
+              </span>
+              <span class="ccard-desc">Overflowing dustbins near the Ward 7 crossing, waste littered across the walking path.</span>
+              <span class="ccard-meta">
+                <span>📍 Ward 7</span><span>🕐 3 days ago</span><span>⚖️ 49/100</span>
+                <span class="sbadge s-resolved"><i></i>Resolved</span>
+              </span>
+            </summary>
+            <div class="ccard-body">
+              <div class="result-rows">
+                <div class="result-row"><span>📍 GPS</span><b>26.85463, 80.93125</b></div>
+                <div class="result-row"><span>🏛️ Resolved by</span><b>Sanitation Dept. · in 2 days</b></div>
+                <div class="result-row"><span>👁️ AI detection</span><b>Garbage Accumulation · 95% confidence</b></div>
+              </div>
+              <div class="stepper">
+                <div class="step done"><i></i><b>Submitted</b></div>
+                <div class="step done"><i></i><b>Under Review</b></div>
+                <div class="step done"><i></i><b>In Progress</b></div>
+                <div class="step done"><i></i><b>Resolved</b></div>
+              </div>
+            </div>
+          </details>
+
+          <details class="ccard st-resolved pr-high">
+            <summary>
+              <span class="ccard-top">
+                <span class="ccard-icon">💧</span>
+                <span class="ccard-title"><b>Water Logging</b><small>CIV-2617</small></span>
+                <span class="badge badge-high">High</span>
+              </span>
+              <span class="ccard-desc">Stagnant rain water for days near Lake Road — mosquitoes breeding, disease risk for the whole colony.</span>
+              <span class="ccard-meta">
+                <span>📍 Lake Road</span><span>🕐 5 days ago</span><span>⚖️ 66/100</span>
+                <span class="sbadge s-resolved"><i></i>Resolved</span>
+              </span>
+            </summary>
+            <div class="ccard-body">
+              <div class="result-rows">
+                <div class="result-row"><span>📍 GPS</span><b>26.85212, 80.95534</b></div>
+                <div class="result-row"><span>🏛️ Resolved by</span><b>Drainage &amp; Water Board · in 3 days</b></div>
+                <div class="result-row"><span>👁️ AI detection</span><b>Water Logging · 93% confidence</b></div>
+              </div>
+              <div class="stepper">
+                <div class="step done"><i></i><b>Submitted</b></div>
+                <div class="step done"><i></i><b>Under Review</b></div>
+                <div class="step done"><i></i><b>In Progress</b></div>
+                <div class="step done"><i></i><b>Resolved</b></div>
+              </div>
+            </div>
+          </details>
+
+          <details class="ccard st-resolved pr-low">
+            <summary>
+              <span class="ccard-top">
+                <span class="ccard-icon">💡</span>
+                <span class="ccard-title"><b>Streetlight Failure</b><small>CIV-2612</small></span>
+                <span class="badge badge-low">Low</span>
+              </span>
+              <span class="ccard-desc">Lamp pole light flickering constantly near the Green Park junction, now completely dead.</span>
+              <span class="ccard-meta">
+                <span>📍 Green Park</span><span>🕐 9 days ago</span><span>⚖️ 34/100</span>
+                <span class="sbadge s-resolved"><i></i>Resolved</span>
+              </span>
+            </summary>
+            <div class="ccard-body">
+              <div class="result-rows">
+                <div class="result-row"><span>📍 GPS</span><b>26.85838, 80.97412</b></div>
+                <div class="result-row"><span>🏛️ Resolved by</span><b>Electrical Dept. · in 4 days</b></div>
+                <div class="result-row"><span>👁️ AI detection</span><b>Streetlight Failure · 90% confidence</b></div>
+              </div>
+              <div class="stepper">
+                <div class="step done"><i></i><b>Submitted</b></div>
+                <div class="step done"><i></i><b>Under Review</b></div>
+                <div class="step done"><i></i><b>In Progress</b></div>
+                <div class="step done"><i></i><b>Resolved</b></div>
+              </div>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <!--  HOTSPOTS ...!!!! -->
+      <section class="view" id="hotspots">
+        <div class="view-head">
+          <h2 class="view-title">Hotspots &amp; Risk</h2>
+          <p class="view-sub">Spatial clusters of complaint density · 7-day predictive forecast</p>
+        </div>
+
+        <div class="grid-map">
+          <div class="panel map-panel">
+            <div class="panel-head">
+              <div><h2>City Hotspot Map</h2><p>Clusters of complaint density · dot color = priority</p></div>
+            </div>
+            <div class="map-wrap">
+              <svg class="map-svg" viewBox="0 0 640 460" role="img" aria-label="City map with complaint hotspots">
+                <path class="river" d="M 589 0 C 525 138, 608 253, 550 460 L 640 460 L 640 0 Z"/>
+                <rect class="park" x="448" y="175" width="83" height="78" rx="10"/>
+                <path class="road road-main" d="M 0 230 H 640"/>
+                <path class="road road-main" d="M 288 0 V 460"/>
+                <path class="road" d="M 0 115 H 576"/>
+                <path class="road" d="M 0 359 H 640"/>
+                <path class="road" d="M 128 0 V 460"/>
+                <path class="road" d="M 435 46 V 460"/>
+                <path class="road" d="M 0 285 Q 192 258, 384 313 T 640 285"/>
+
+                <text class="district-label" x="115" y="113" text-anchor="middle">Sector 12</text>
+                <text class="district-label" x="243" y="67" text-anchor="middle">Ward 7</text>
+                <text class="district-label" x="397" y="122" text-anchor="middle">Lake Road</text>
+                <text class="district-label" x="301" y="200" text-anchor="middle">MG Road</text>
+                <text class="district-label" x="211" y="237" text-anchor="middle">Market Square</text>
+                <text class="district-label" x="365" y="260" text-anchor="middle">City Hospital</text>
+                <text class="district-label" x="486" y="205" text-anchor="middle">Green Park</text>
+                <text class="district-label" x="525" y="315" text-anchor="middle">Riverside</text>
+                <text class="district-label" x="141" y="324" text-anchor="middle">Old Town</text>
+                <text class="district-label" x="435" y="370" text-anchor="middle">Tech Park</text>
+                <text class="district-label" x="282" y="352" text-anchor="middle">Station Road</text>
+                <text class="district-label" x="77" y="223" text-anchor="middle">NH Bypass</text>
+
+                <circle class="cluster" cx="211" cy="253" r="44"/>
+                <text class="cluster-label" x="258" y="243">4 issues</text>
+                <circle class="cluster" cx="282" cy="368" r="40"/>
+                <text class="cluster-label" x="325" y="358">3 issues</text>
+                <circle class="cluster" cx="301" cy="216" r="30"/>
+                <text class="cluster-label" x="334" y="200">2 issues</text>
+
+                <circle class="cdot" cx="296" cy="222" r="6" fill="var(--st-critical)"><title>CIV-2624 · Road Damage · MG Road · Critical</title></circle>
+                <circle class="cdot" cx="309" cy="209" r="6" fill="var(--st-serious)"><title>CIV-2607 · Road Damage · MG Road · High</title></circle>
+                <circle class="cdot" cx="276" cy="361" r="6" fill="var(--st-critical)"><title>CIV-2623 · Water Logging · Station Road · Critical</title></circle>
+                <circle class="cdot" cx="291" cy="374" r="6" fill="var(--st-serious)"><title>CIV-2609 · Water Logging · Station Road · High</title></circle>
+                <circle class="cdot" cx="270" cy="378" r="6" fill="var(--st-warning)"><title>CIV-2603 · Road Damage · Station Road · Medium</title></circle>
+                <circle class="cdot" cx="203" cy="246" r="6" fill="var(--st-serious)"><title>CIV-2622 · Garbage · Market Square · High</title></circle>
+                <circle class="cdot" cx="219" cy="259" r="6" fill="var(--st-serious)"><title>CIV-2611 · Drainage · Market Square · High</title></circle>
+                <circle class="cdot" cx="199" cy="263" r="6" fill="var(--st-warning)"><title>CIV-2605 · Garbage · Market Square · Medium</title></circle>
+                <circle class="cdot" cx="222" cy="243" r="6" fill="var(--st-good)"><title>CIV-2598 · Garbage · Market Square · Low</title></circle>
+                <circle class="cdot" cx="141" cy="336" r="6" fill="var(--st-serious)"><title>CIV-2621 · Drainage · Old Town · High</title></circle>
+                <circle class="cdot" cx="525" cy="327" r="6" fill="var(--st-warning)"><title>CIV-2620 · Streetlight · Riverside Colony · Medium</title></circle>
+                <circle class="cdot" cx="368" cy="270" r="6" fill="var(--st-critical)"><title>CIV-2615 · Water Logging · City Hospital · Critical</title></circle>
+                <circle class="cdot" cx="80" cy="232" r="6" fill="var(--st-serious)"><title>CIV-2613 · Road Damage · NH Bypass · High</title></circle>
+                <circle class="cdot" cx="399" cy="131" r="6" fill="var(--st-warning)"><title>CIV-2617 · Water Logging · Lake Road · Medium</title></circle>
+                <circle class="cdot" cx="486" cy="214" r="6" fill="var(--st-good)"><title>CIV-2612 · Streetlight · Green Park · Low</title></circle>
+                <circle class="cdot" cx="431" cy="392" r="6" fill="var(--st-good)"><title>CIV-2600 · Streetlight · Tech Park · Low</title></circle>
+              </svg>
+            </div>
+            <div class="map-legend">
+              <span><i class="dot" style="background:var(--st-critical)"></i> Critical</span>
+              <span><i class="dot" style="background:var(--st-serious)"></i> High</span>
+              <span><i class="dot" style="background:var(--st-warning)"></i> Medium</span>
+              <span><i class="dot" style="background:var(--st-good)"></i> Low</span>
+              <span><i class="ring"></i> Hotspot cluster</span>
+            </div>
+          </div>
+
+          <div class="map-side">
+            <div class="panel">
+              <div class="panel-head"><div><h2>Top Hotspots</h2><p>Recurring issue areas</p></div></div>
+              <div class="hotspot-list">
+                <div class="hotspot-item">
+                  <span class="hs-rank">1</span>
+                  <div><b>Market Square</b><small>🗑️ mostly garbage · 3 active</small></div>
+                  <span class="hs-count">6<small>reports</small></span>
+                </div>
+                <div class="hotspot-item">
+                  <span class="hs-rank">2</span>
+                  <div><b>Station Road</b><small>💧 mostly water logging · 2 active</small></div>
+                  <span class="hs-count">5<small>reports</small></span>
+                </div>
+                <div class="hotspot-item">
+                  <span class="hs-rank">3</span>
+                  <div><b>MG Road</b><small>🕳️ mostly road damage · 2 active</small></div>
+                  <span class="hs-count">4<small>reports</small></span>
+                </div>
+                <div class="hotspot-item">
+                  <span class="hs-rank">4</span>
+                  <div><b>Old Town</b><small>🚰 mostly drainage · 1 active</small></div>
+                  <span class="hs-count">3<small>reports</small></span>
+                </div>
+                <div class="hotspot-item">
+                  <span class="hs-rank">5</span>
+                  <div><b>City Hospital</b><small>💧 mostly water logging · 1 active</small></div>
+                  <span class="hs-count">2<small>reports</small></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head">
+                <div><h2>7-Day Risk Forecast</h2><p>Predicted issue-prone zones</p></div>
+                <span class="chip-ai">AI Forecast</span>
+              </div>
+              <div class="risk-list">
+                <div class="risk-item">
+                  <b>Station Road</b><span class="risk-pct">88%</span>
+                  <small>💧 Water logging likely · monsoon pattern</small>
+                  <div class="risk-track"><div class="risk-fill" style="width:88%"></div></div>
+                </div>
+                <div class="risk-item">
+                  <b>Market Square</b><span class="risk-pct">76%</span>
+                  <small>🗑️ Garbage surge likely · weekend pattern</small>
+                  <div class="risk-track"><div class="risk-fill" style="width:76%"></div></div>
+                </div>
+                <div class="risk-item">
+                  <b>MG Road</b><span class="risk-pct">64%</span>
+                  <small>🕳️ Road damage likely · heavy traffic corridor</small>
+                  <div class="risk-track"><div class="risk-fill" style="width:64%"></div></div>
+                </div>
+                <div class="risk-item">
+                  <b>Old Town</b><span class="risk-pct">52%</span>
+                  <small>🚰 Drainage blockage likely · aging sewer lines</small>
+                  <div class="risk-track"><div class="risk-fill" style="width:52%"></div></div>
+                </div>
+                <div class="risk-item">
+                  <b>City Hospital</b><span class="risk-pct">47%</span>
+                  <small>💧 Water logging risk · low-lying zone</small>
+                  <div class="risk-track"><div class="risk-fill" style="width:47%"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--  NOTIFICATIONS ...!!! -->
+      <section class="view" id="notifications">
+        <div class="view-head">
+          <h2 class="view-title">Notifications</h2>
+          <p class="view-sub">Status updates &amp; system alerts for your reports</p>
+        </div>
+
+        <div class="panel notif-panel">
+          <div class="notif-list">
+            <div class="notif unread">
+              <span class="notif-icon">🔧</span>
+              <div>
+                <b>CIV-2624 · In Progress</b>
+                <p>Public Works Dept. team has been dispatched to MG Road. Repair expected within 48 hours.</p>
+                <small>1 hr ago</small>
+              </div>
+            </div>
+            <div class="notif unread">
+              <span class="notif-icon">🔍</span>
+              <div>
+                <b>CIV-2623 · Under Review</b>
+                <p>Your water logging report at Station Road passed AI verification and is under review by the Drainage &amp; Water Board.</p>
+                <small>5 hr ago</small>
+              </div>
+            </div>
+            <div class="notif unread">
+              <span class="notif-icon">📈</span>
+              <div>
+                <b>Risk alert for your area</b>
+                <p>The forecast model predicts an 88% chance of water logging at Station Road this week. Preventive crews notified.</p>
+                <small>8 hr ago</small>
+              </div>
+            </div>
+            <div class="notif">
+              <span class="notif-icon">🔁</span>
+              <div>
+                <b>CIV-2622 · Duplicates merged</b>
+                <p>4 nearby reports of the same garbage issue were merged — the complaint's frequency score was boosted.</p>
+                <small>yesterday</small>
+              </div>
+            </div>
+            <div class="notif">
+              <span class="notif-icon">✅</span>
+              <div>
+                <b>CIV-2619 · Resolved</b>
+                <p>Your garbage accumulation report at Ward 7 has been resolved by the Sanitation Dept. Thank you for reporting!</p>
+                <small>2 days ago</small>
+              </div>
+            </div>
+            <div class="notif">
+              <span class="notif-icon">✅</span>
+              <div>
+                <b>CIV-2617 · Resolved</b>
+                <p>Stagnant water at Lake Road was drained and the area was sanitized. Marked resolved after citizen confirmation.</p>
+                <small>3 days ago</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
